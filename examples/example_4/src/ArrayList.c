@@ -69,12 +69,12 @@ ArrayList* al_newArrayList(void)
  */
 int al_add(ArrayList* this, void* pElement)
 {
-    int flag=0;
+   // int flag=0;
     int returnAux = -1;
     if(this !=NULL&&pElement!=NULL)
         {
 
-            if(this->size<this->reservedSize) //SIZE-reserverSize-pElements
+            if(this->size<this->reservedSize) //Llevan this -> SIZE-reserverSize-pElements
             {
 
                this->pElements[this->size]=pElement;
@@ -140,14 +140,14 @@ int al_deleteArrayList(ArrayList* this)
 int al_len(ArrayList* this)
 {
     int returnAux = -1;
-    int tamanio;
+
 
          if(this!=NULL)
           {
-             tamanio=this->size;
-             returnAux=tamanio;
+             returnAux=this->size;
+
           }
-         //else {returnAux=-1}
+
     return returnAux;
 }
 
@@ -160,7 +160,12 @@ int al_len(ArrayList* this)
  */
 void* al_get(ArrayList* this, int index)
 {
-    void* returnAux = NULL;
+    int returnAux = NULL;
+     if(this!=NULL && index>=0 && index<=this->size)
+        {
+            returnAux=*(this->pElements+index);
+        }
+
 
     return returnAux;
 }
@@ -177,6 +182,22 @@ void* al_get(ArrayList* this, int index)
 int al_contains(ArrayList* this, void* pElement)
 {
     int returnAux = -1;
+    int i;
+    int len=al_len(this);
+
+    if(this!=NULL&&pElement!=NULL)
+    {
+       for (i=0;i<len;i++)
+       {
+           if(*(this->pElements+i)==pElement)
+            {
+                return returnAux=1;
+            }
+
+       }
+        return returnAux=0;
+    }
+
 
     return returnAux;
 }
@@ -193,20 +214,15 @@ int al_contains(ArrayList* this, void* pElement)
 int al_set(ArrayList* this, int index,void* pElement)
 {
     int returnAux = -1;
-
-    {
-
-    int ret = 0;
-    if(this!=NULL && id!=NULL)
-    {
-        strcpy(this->id , id);
-        returnAux = 1;
-    }
-
-    return ret;
-
-
-}
+    int  ret;
+     if(this!=NULL && pElement!=NULL && index>=0 && index<=this->size)
+        {
+             ret=al_add(this,pElement);
+             if(ret!=-1)
+            {
+                returnAux=0;
+            }
+        }
 
     return returnAux;
 }
