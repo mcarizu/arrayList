@@ -217,9 +217,10 @@ int al_set(ArrayList* this, int index,void* pElement)
     int  ret;
      if(this!=NULL && pElement!=NULL && index>=0 && index<=this->size)
         {
-             ret=al_add(this,pElement);
-             if(ret!=-1)
+             if(index<=(this->size)&&index>=0)
             {
+                *(this->pElements+index)=pElement;
+
                 returnAux=0;
             }
         }
